@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" ng-app="helloworldApp">
+<head>
+  <meta charset="utf-8">
+  <title>My HTML File</title>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="css/app.css">
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="js/controllers.js"></script>
+</head>
+<body ng-controller="helloworldController">
+
+  <div class="col-md-2">
+  <p>Nothing here {{'yet' + '!'}}</p>
+  </div>
+
+  <div class="col-md-10">
+  <input type="text" ng-model="yourName" placeholder="Enter a name here">
+  <h1>Hello {{yourName}}!</h1>
+
+  <h2>Job list</h2>
+  <select ng-model="orderOptions">
+    <option value="id">Job ID</option>
+    <option value="name">Job name</option>
+  </select>
+  <input ng-model="searchJob">
+  <ol>
+    <li ng-repeat="job in jobs | filter:searchJob | orderBy:orderOptions">
+        <label>ID: {{job.id}}</label>&nbsp;-&nbsp;<span style="color:#aa77ff">{{job.name}}</span>
+    </li>
+  </ol>
+  <p>Total number of jobs: {{jobs.length}}</p>
+  </div>
+</body>
+</html>

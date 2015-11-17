@@ -1,0 +1,18 @@
+{
+  "name": "angularjs",
+  "version": "0.0.0",
+  "authors": [
+    "Terence <terence.wong@fourthmedia.co.nz>"
+  ],
+  "license": "Private",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.1.1",
+    "angularjs": "0.3.2"
+  }
+}
