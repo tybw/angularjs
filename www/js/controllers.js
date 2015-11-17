@@ -1,6 +1,7 @@
 var helloworldApp = angular.module('helloworldApp', []);
 
-helloworldApp.controller('helloworldController', function($scope) {
+helloworldApp.controller('helloworldController', function($scope, $http) {
+
     $scope.jobs = [
         {'id': '8', 'name': 'Run'},
         {'id': '9', 'name': 'Eat'},
@@ -9,4 +10,9 @@ helloworldApp.controller('helloworldController', function($scope) {
     ];
 
     $scope.orderOptions = 'id';
+
+    $http.get('data/joblist.json')
+        .success(function(data) {
+            $scope.jobs = data;
+        });
 });
