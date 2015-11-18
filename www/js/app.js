@@ -1,24 +1,41 @@
 
+/*
+  The app - helloworldApp
+
+  It defines routes and controllers.
+ */
+
 var helloworldApp = angular.module('helloworldApp', [
     'ngRoute',
-    'helloworldController'
+    'jobControllers',
+    'jobServices',
+    'jobAnimations'
 ]);
 
-helloworldApp(['$routeProvider',
+/*
+  Routings
+
+  For each route, one controller is defined:
+  - jobListCtrl
+  - jobDetailCtrl
+*/
+
+helloworldApp.config(['$routeProvider',
+
     function($routeProvider) {
+        $routeProvider.
+            when('/', {
+                templateUrl: 'views/main.html',
+                controller:  'jobListCtrl'
+            }).
 
-        when('/', {
-            templateUrl: 'views/main.html',
-            controller:  'JobListController'
-        }).
+            when('/job/:jobId', {
+                templateUrl: 'views/job_detail.html',
+                controller:  'jobDetailCtrl'
+            }).
 
-        when('/job/:jobId', {
-            templateUrl: 'views/job_detail.html',
-            controller:  'JobDetailController'
-        }).
-
-        otherwise(
-            redirectTo: '/';
-        );
+            otherwise({
+                redirectTo: '/'
+            });
     }
 ]);

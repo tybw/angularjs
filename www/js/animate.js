@@ -1,0 +1,2 @@
+
+angular.module('jobAnimations', ['ngAnimate']);

@@ -17,7 +17,8 @@
     <input ng-model="searchJob">
     <ol>
       <li ng-repeat="job in jobs | filter:searchJob | orderBy:orderOptions">
-        <label>ID: {{job.id}}</label>&nbsp;-&nbsp;<span style="color:#aa77ff">{{job.name}}</span>
+        <label>ID: {{job.id}}</label>&nbsp;-&nbsp;
+        <a href="#/job/{{job.id}}"><span style="color:#aa77ff">{{job.name}}</span></a>
       </li>
     </ol>
     <p>Total number of jobs: {{jobs.length}}</p>
