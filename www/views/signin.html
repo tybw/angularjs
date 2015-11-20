@@ -1,0 +1,10 @@
+  <div class="col-md-10" ng-controller="authCtrl">
+    <h1>Sign-in</h1>
+    <div>
+        <label>Username:</label>&nbsp;<input type="text" ng-model="username" placeholder="Username"><br>
+        <label>Password:</label>&nbsp;<input type="password" ng-model="password" placeholder="Password"><br>
+        <button ng-click="signin()">Go</button>
+        <button ng-click="count = count + 1" ng-init="count=0">Try</button>
+        <span>Tried {{count}} times without success...</span>
+    </div>
+  </div>

@@ -1,9 +1,11 @@
-
-/* Module */
+/*
+ *  Module
+ */
 
 /* The controllers - jobControllers */
 
-var jobControllers = angular.module('jobControllers', []);
+var jobControllers  = angular.module('jobControllers', []);
+var authControllers = angular.module('authControllers', []);
 
 /* Controllers */
 /* We can use low-level $http way, but the service way is much better */
@@ -26,6 +28,24 @@ jobControllers.controller('jobDetailCtrl', ['$scope', '$routeParams', 'Job',
         $scope.job = Job.get({ jobId: $routeParams.jobId }, function() {});
     }
 ]);
+
+/* Auth controllers */
+
+authControllers.controller('authCtrl', ['$scope', 'Auth', function($scope, Auth) {
+
+    $scope.signin = function() {
+        //alert($scope.username +":"+ $scope.password);
+        return Auth.signin($scope.username, $scope.password);
+    }
+
+    $scope.signout = function() {
+        return Auth.signout($scope.username);
+    }
+
+    $scope.refresh = function() {
+        return Auth.refresh($scope.username, $scope.token);
+    }
+}]);
 
 /* Using $http method */
 

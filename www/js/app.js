@@ -1,16 +1,21 @@
-
 /*
-  The app - helloworldApp
-
-  It defines routes and controllers.
+ * The app - helloworldApp
+ *
+ * It defines routes and controllers.
+ *
  */
-
 var helloworldApp = angular.module('helloworldApp', [
     'ngRoute',
     'jobControllers',
     'jobServices',
-    'jobAnimations'
+    'jobAnimations',
+    'authControllers',
+    'authServices'
 ]);
+
+/* Constants */
+
+helloworldApp.constant('authApiEndpointLogin', 'http://eurocorp.localhost');
 
 /*
   Routings
@@ -32,6 +37,11 @@ helloworldApp.config(['$routeProvider',
             when('/job/:jobId', {
                 templateUrl: 'views/job_detail.html',
                 controller:  'jobDetailCtrl'
+            }).
+
+            when('/signin', {
+                templateUrl: 'views/signin.html',
+                controller: 'authCtrl'
             }).
 
             otherwise({
