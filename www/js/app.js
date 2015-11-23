@@ -9,8 +9,12 @@ var helloworldApp = angular.module('helloworldApp', [
     'jobControllers',
     'jobServices',
     'jobAnimations',
+    'eurocorpControllers',
+    'eurocorpServices',
     'authControllers',
-    'authServices'
+    'authServices',
+    'LocalStorageModule',
+    'ngCookies'
 ]);
 
 /* Constants */
@@ -24,7 +28,6 @@ helloworldApp.constant('authApiEndpointLogin', 'http://eurocorp.localhost');
   - jobListCtrl
   - jobDetailCtrl
 */
-
 helloworldApp.config(['$routeProvider',
 
     function($routeProvider) {
@@ -44,8 +47,30 @@ helloworldApp.config(['$routeProvider',
                 controller: 'authCtrl'
             }).
 
+            when('/eurocorp', {
+                templateUrl: 'views/eurocorp/index.html',
+                controller: 'eurocorpCtrl'
+            }).
+
             otherwise({
                 redirectTo: '/'
             });
+    }
+]);
+
+helloworldApp.config(
+
+    function(localStorageServiceProvider) {
+        localStorageServiceProvider
+            .setPrefix('eurocorp')
+            .setStorageCookie(0, '/')
+            .setStorageType('sessionStorage')
+            .setStorageCookieDomain(window.location);
+    }
+);
+
+helloworldApp.config(['$httpProvider',
+    function($httpProvider) {
+        $httpProvider.defaults.withCredentials = true;
     }
 ]);

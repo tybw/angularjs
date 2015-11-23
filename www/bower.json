@@ -17,6 +17,8 @@
     "angularjs": "1.4.x",
     "angular-route": "1.4.x",
     "angular-resource": "1.4.x",
-    "angular-animate": "1.4.x"
+    "angular-animate": "1.4.x",
+    "angular-local-storage": "0.2.x",
+    "angular-cookies": "1.4.x"
   }
 }

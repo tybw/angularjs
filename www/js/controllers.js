@@ -4,8 +4,9 @@
 
 /* The controllers - jobControllers */
 
-var jobControllers  = angular.module('jobControllers', []);
-var authControllers = angular.module('authControllers', []);
+var jobControllers      = angular.module('jobControllers', []);
+var authControllers     = angular.module('authControllers', []);
+var eurocorpControllers = angular.module('eurocorpControllers', []);
 
 /* Controllers */
 /* We can use low-level $http way, but the service way is much better */
@@ -31,21 +32,60 @@ jobControllers.controller('jobDetailCtrl', ['$scope', '$routeParams', 'Job',
 
 /* Auth controllers */
 
-authControllers.controller('authCtrl', ['$scope', 'Auth', function($scope, Auth) {
+authControllers.controller( 'authCtrl', [
+    '$scope', 'Auth', 'localStorageService',
+    function($scope, Auth, localStorageService) {
 
-    $scope.signin = function() {
-        //alert($scope.username +":"+ $scope.password);
-        return Auth.signin($scope.username, $scope.password);
-    }
+        function handleRequest(req) {
+            var token = req.data ? req.data.token : null;
+            console.log(token);
+        }
 
-    $scope.signout = function() {
-        return Auth.signout($scope.username);
-    }
+        $scope.signin = function() {
+            status = Auth.signin($scope.username, $scope.password);
+            if (status) {
+                localStorageService.set('token', 'NQc7B8gqum2tmq3LexphZjuF4usvVr97caHcMqud4Pc');
+                console.log('Sign-in ok!');
+            } else {
+                localStorageService.set('token', '');
+                console.log('Sign-in failed!');
+            }
+        }
 
-    $scope.refresh = function() {
-        return Auth.refresh($scope.username, $scope.token);
+        $scope.signout = function() {
+            localStorageService.set('token', '');
+            return Auth.signout($scope.username);
+        }
+
+        $scope.refresh = function() {
+            return Auth.refresh($scope.username, $scope.token);
+        }
     }
-}]);
+]);
+
+eurocorpControllers.controller( 'eurocorpCtrl', [
+
+    '$scope',
+    'Eurocorp',
+    '$cookies',
+    '$cookieStore',
+    'localStorageService',
+
+    function($scope, Eurocorp, $cookies, $cookieStore, localStorageService) {
+
+        var myId = localStorageService.get('myId');
+        var phpSessionId = localStorageService.get('phpSessionId');
+
+        myId = '5';
+        phpSessionId = 'sn1gcf6nu8hus7gv5linjsk2o7';
+        hfm = 'V2ViZml0XEV1cm9jb3JwXFNlY3VyaXR5QnVuZGxlXEVudGl0eVxVc2VyOllXUnRhVzVBZDJWaVptbDBMbU52TG01NjoxNDc5Nzc2MzMzOjg1MzkwMTUwNTA0OWQyNGJhNWQwMTY0YzIyZjA2Mjc1OGEzOTVkMzYxYmRlMTk0MDFiMWM5MWI3NDEwYmMwZDQ%3D';
+
+        $cookies.put('HFM', hfm);
+        $cookies.put('PHPSESSID', phpSessionId);
+        $scope.customers = Eurocorp.customers();
+    }
+]);
+
 
 /* Using $http method */
 
