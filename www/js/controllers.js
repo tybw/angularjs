@@ -63,16 +63,63 @@ authControllers.controller( 'authCtrl', [
     }
 ]);
 
+/* Eurocorp controllers */
+
 eurocorpControllers.controller( 'eurocorpCtrl', [
+    '$scope',
+    function($scope) {
+    }
+]);
+
+eurocorpControllers.controller( 'eurocorpCustomerCtrl', [
+    '$scope',
+    function($scope) {
+    }
+]);
+
+/**
+ * List of jobs of a customer
+ */
+eurocorpControllers.controller( 'eurocorpCustomerJobsCtrl', [
+    '$scope',
+    '$routeParams',
+    'Eurocorp',
+    function($scope, $routeParams, Eurocorp) {
+
+        $scope.jobs = Eurocorp.customerJobs.get({
+                customerId: $routeParams.customerId,
+                status: $routeParams.status
+            },
+            function(result) {
+                result.forEach(function(entry) {
+                    $scope.jobInfo.push = Eurocorp.jobInfo.get({
+                        jobId: entry.job_id,
+                        status: $routeParams.status
+                    },
+                    function() {});
+                });
+            }
+        );
+
+        $scope.customer = Eurocorp.customer.get({
+                customerId: $routeParams.customerId,
+            }
+        );
+    }
+]);
+
+eurocorpControllers.controller( 'eurocorpCustomersCtrl', [
 
     '$scope',
     'Eurocorp',
+    'Auth',
     '$cookies',
     '$cookieStore',
     'localStorageService',
 
     function($scope, Eurocorp, $cookies, $cookieStore, localStorageService) {
 
+        /*
         var myId = localStorageService.get('myId');
         var phpSessionId = localStorageService.get('phpSessionId');
 
@@ -82,7 +129,9 @@ eurocorpControllers.controller( 'eurocorpCtrl', [
 
         $cookies.put('HFM', hfm);
         $cookies.put('PHPSESSID', phpSessionId);
-        $scope.customers = Eurocorp.customers();
+        */
+
+        $scope.customers = Eurocorp.customers.get();
     }
 ]);
 

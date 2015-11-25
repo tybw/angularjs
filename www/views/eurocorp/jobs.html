@@ -1,0 +1,21 @@
+  <div class="col-md-10">
+  <ul>
+    <li><a href="/#/eurocorp/customers/{{customer.owner_id.id}}/jobs?status=quotes">QUOTES</a></li>
+    <li><a href="/#/eurocorp/customers/{{customer.owner_id.id}}/jobs?status=in-progress">IN PROGRESS</a></li>
+    <li><a href="/#/eurocorp/customers/{{customer.owner_id.id}}/jobs?status=completed">COMPLETED</a></li>
+  </ul>
+  <h1>{{customer.customer_name}}</h1>
+  </div>
+
+  <div class="col-md-10">
+    <ul>
+      <li ng-repeat="job in jobs">
+        <div>
+          <span>{{job.job_name}}</span><br>
+          <span>{{job.invoice_id}}</span><br>
+          <span ng-repeat="addr_component in job.site_address">{{addr_component}}, </span><br>
+          <span>Next Due Date</span><span>{{jobInfo.importantDate}}<span>{{jobId}}
+        </div>
+      </li>
+    </ul>
+  </div>
