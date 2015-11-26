@@ -11,10 +11,11 @@
     <ul>
       <li ng-repeat="job in jobs">
         <div>
-          <span>{{job.job_name}}</span><br>
+          <span><a href="/#/eurocorp/jobs/{{job.id}}/schedules">{{job.job_name}}</a></span><br>
           <span>{{job.invoice_id}}</span><br>
           <span ng-repeat="addr_component in job.site_address">{{addr_component}}, </span><br>
-          <span>Next Due Date</span><span>{{jobInfo.importantDate}}<span>{{jobId}}
+          <span>Due Date</span><br>
+          <span>{{jobInfo[job.id].importantDate.date.dued_date | date:'MMM dd'}}<span>
         </div>
       </li>
     </ul>

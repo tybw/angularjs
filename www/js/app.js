@@ -67,6 +67,16 @@ helloworldApp.config(['$routeProvider',
                 controller: 'eurocorpCustomerJobsCtrl'
             }).
 
+            when('/eurocorp/jobs/:jobId/schedules', {
+                templateUrl: 'views/eurocorp/schedules.html',
+                controller: 'eurocorpJobSchedulesCtrl'
+            }).
+
+            when('/eurocorp/schedules/:scheduleId/sheets', {
+                templateUrl: 'views/eurocorp/sheets.html',
+                controller: 'eurocorpScheduleSheetsCtrl'
+            }).
+
             otherwise({
                 redirectTo: '/'
             });

@@ -86,17 +86,20 @@ eurocorpControllers.controller( 'eurocorpCustomerJobsCtrl', [
     'Eurocorp',
     function($scope, $routeParams, Eurocorp) {
 
+        $scope.jobInfo = {};
         $scope.jobs = Eurocorp.customerJobs.get({
                 customerId: $routeParams.customerId,
                 status: $routeParams.status
             },
             function(result) {
                 result.forEach(function(entry) {
-                    $scope.jobInfo.push = Eurocorp.jobInfo.get({
-                        jobId: entry.job_id,
-                        status: $routeParams.status
-                    },
-                    function() {});
+                    console.log(entry);
+                    $scope.jobInfo[entry.id] = Eurocorp.jobInfo.get({
+                            jobId: entry.id,
+                            status: $routeParams.status
+                        },
+                        function() {
+                        });
                 });
             }
         );
@@ -135,6 +138,56 @@ eurocorpControllers.controller( 'eurocorpCustomersCtrl', [
     }
 ]);
 
+/**
+ * List of schedules of a job
+ */
+eurocorpControllers.controller( 'eurocorpJobSchedulesCtrl', [
+    '$scope',
+    '$routeParams',
+    'Eurocorp',
+    function($scope, $routeParams, Eurocorp) {
+
+        $scope.job = Eurocorp.job.get({
+            jobId: $routeParams.jobId
+        }, function() {});
+    }
+]);
+
+/**
+ * Sheet page: List of sheets of a schedule plus other details
+ */
+eurocorpControllers.controller( 'eurocorpScheduleSheetsCtrl', [
+    '$scope',
+    '$routeParams',
+    'Eurocorp',
+    function($scope, $routeParams, Eurocorp) {
+
+        $scope.schedule = Eurocorp.schedule.get({
+            scheduleId: $routeParams.scheduleId
+        }, function(schedule) {
+
+            $scope.job = Eurocorp.job.get({
+                jobId: schedule.job_id.id
+            }, function(job) {
+                $scope.representative = Eurocorp.representative.get({
+                    jobId: schedule.job_id.id
+                }, function() {});
+                $scope.detailer = Eurocorp.detailer.get({
+                    jobId: schedule.job_id.id
+                }, function() {});
+
+                $scope.despatcher = Eurocorp.despatcher.get({
+                    jobId: schedule.job_id.id
+                }, function() {});
+            });
+        });
+/*
+        $scope.sheetInfo = Eurocorp.sheetInfo.get({
+            scheduleId: $routeParams.scheduleId
+        }, function() {});
+*/
+    }
+]);
 
 /* Using $http method */
 

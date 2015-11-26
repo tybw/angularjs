@@ -1,0 +1,11 @@
+  <div class="col-md-10">
+    {{job.job_name}}<br>
+    {{job.invoice_id}}<br>
+    <ul>
+      <li ng-repeat="schedule in job.schedules">
+        <div>
+          <span><a href="/#/eurocorp/schedules/{{schedule.id}}/sheets">{{schedule.id}}</a></span>
+        </div>
+      </li>
+    </ul>
+  </div>

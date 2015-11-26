@@ -66,30 +66,49 @@ eurocorpServices.factory('Eurocorp', ['$resource',
         return {
             customerJobs: $resource('http://eurocorp.localhost/api/customers/:customerId/jobs',
                 { status: '@status' },
-                {
-                    get: {method: 'GET', params: {}, isArray: true}
-                }
+                { get: {method: 'GET', params: {}, isArray: true}}
             ),
             customer: $resource('http://eurocorp.localhost/api/customers/:customerId',
                 {},
-                {
-                    get: {method: 'GET', params: {}, isObject: true}
-                }
+                { get: {method: 'GET', params: {}, isObject: true}}
             ),
             customers: $resource('http://eurocorp.localhost/api/:operation',
                 {},
-                {
-                    get: {method: 'GET', params: {operation: 'customers'}, isArray: true},
-                }
+                { get: {method: 'GET', params: {operation: 'customers'}, isArray: true}}
             ),
-
+            job: $resource('http://eurocorp.localhost/api/jobs/:jobId',
+                { jobId: '@jobId' },
+                { get: {method: 'GET', params: {}, isObject: true}}
+            ),
+            schedule: $resource('http://eurocorp.localhost/api/schedules/:scheduleId',
+                {},
+                { get: {method: 'GET', params: {scheduleId: '@schedule_id'}, isObject: true}}
+            ),
+            representative: $resource('http://eurocorp.localhost/api/jobs/:jobId/representatives',
+                {},
+                { get: {method: 'GET', params: {jobId: '@job_id'}, isObject: true}}
+            ),
+            detailer: $resource('http://eurocorp.localhost/api/jobs/:jobId/detailers',
+                {},
+                { get: {method: 'GET', params: {jobId: '@job_id'}, isObject: true}}
+            ),
+            despatcher: $resource('http://eurocorp.localhost/api/jobs/:jobId/despatchers',
+                {},
+                { get: {method: 'GET', params: {jobId: '@job_id'}, isObject: true}}
+            ),
             /* Miscellenance job information which is not available directly from database */
 
             jobInfo: $resource('http://eurocorp.localhost/api/jobs/:jobId/information',
                 { status: '@status' },
-                {
-                    get: {method: 'GET', params: {jobId: '@job_id'}, isArray: true},
-                }
+                { get: {method: 'GET', params: {jobId: '@job_id'}, isObject: true}}
+            ),
+            sheetInfo: $resource('http://eurocorp.localhost/api/sheets/:sheetId/information',
+                {},
+                { get: {method: 'GET', params: {sheetId: '@sheet_id'}, isObject: true}}
+            ),
+            jobSchedules: $resource('http://eurocorp.localhost/api/jobs/:jobId/schedules',
+                {},
+                { get: {method: 'GET', params: {jobId: '@job_id'}, isObject: true}}
             ),
         };
     }
