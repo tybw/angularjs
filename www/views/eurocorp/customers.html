@@ -3,7 +3,7 @@
     <h1>YOUR CLIENT LIST</h1>
     <ul>
       <li ng-repeat="customer in customers">
-        <label><a href="/#/eurocorp/customers/{{customer.owner_id.id}}/jobs?status=all">{{customer.brand}}</a></label>
+        <label><a href="/#/eurocorp/customers/{{customer.owner.id}}/jobs?status=all">{{customer.brand}}</a></label>
       </li>
     </ul>
 

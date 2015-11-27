@@ -1,0 +1,14 @@
+  <div class="col-md-10">
+    <span ng-if="sheetStatus === 'Quote'" ng-repeat="content_line in sheet.detailing_content">{{content_line}}<br></span>
+    <table ng-if="sheetStatus === 'In Progress' || sheetStatus === 'Completed'">
+      <tr ng-repeat="sheetDetails in sheet.sheet_details">
+        <td>{{sheetDetails.quantity}}&nbsp;x<td>
+        <td>{{}}<td>
+        <td>{{sheetDetails.product.shape}}<td>
+        <td>{{sheetDetails.product.sku}}<td>
+        <td>{{sheetDetails.product.tag}}<td>
+        <td>{{sheetDetails.product.length}}{{sheetDetails.product.length_unit}}<td>
+        <td>{{sheetDetails.product.weight}}{{sheetDetails.product.weight_unit}}<td>
+      </tr>
+    </table>
+  </div>

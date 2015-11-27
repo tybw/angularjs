@@ -2,8 +2,8 @@
     <div>
     <span>Schedule name: {{schedule.id}}</span><br>
     <span>Job name: {{job.job_name}}</span><br>
-    Address:<br> <span ng-repeat="addr_component in schedule.job_id.site_address">{{addr_component}},<br></span>
-    <span>Order {{schedule.job_id.invoice_id}}</span><br>
+    Address:<br> <span ng-repeat="addr_component in schedule.job.site_address">{{addr_component}},<br></span>
+    <span>Order {{schedule.job.invoice_id}}</span><br>
     </div>
 
     <div>
@@ -27,7 +27,11 @@
     <ul>
       <li ng-repeat="sheet in schedule.sheets">
         <div>
-          <span><a href="/#/eurocorp/sheets/{{sheet.id}}">{{sheet.sheet_name}}</a></span>
+          <span>
+            <a href="/#/eurocorp/sheets/{{sheet.id}}">
+            <span ng-if="sheet.sheet_name == ''">--</span>
+            <span ng-if="sheet.sheet_name != ''">{{sheet.sheet_name}}</span>
+            </a></span>
           <span>Due Date</span><br>
           <span>{{sheetInfo[sheet.id].importantDate.date.dued_date | date:'MMM dd'}}<span>
         </div>

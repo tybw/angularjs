@@ -93,7 +93,6 @@ eurocorpControllers.controller( 'eurocorpCustomerJobsCtrl', [
             },
             function(result) {
                 result.forEach(function(entry) {
-                    console.log(entry);
                     $scope.jobInfo[entry.id] = Eurocorp.jobInfo.get({
                             jobId: entry.id,
                             status: $routeParams.status
@@ -168,7 +167,8 @@ eurocorpControllers.controller( 'eurocorpScheduleSheetsCtrl', [
 
             $scope.job = Eurocorp.job.get({
                 jobId: schedule.job_id.id
-            }, function(job) {
+            }, function() {
+
                 $scope.representative = Eurocorp.representative.get({
                     jobId: schedule.job_id.id
                 }, function() {});
@@ -180,12 +180,50 @@ eurocorpControllers.controller( 'eurocorpScheduleSheetsCtrl', [
                     jobId: schedule.job_id.id
                 }, function() {});
             });
+
+            $scope.sheetInfo = {};
+            schedule.sheets.forEach(function(sheet) {
+                $scope.sheetInfo[sheet.id] = Eurocorp.sheetInfo.get({
+                    sheetId: sheet.id,
+                    status: $routeParams.status
+                }, function() {});
+            });
         });
-/*
-        $scope.sheetInfo = Eurocorp.sheetInfo.get({
-            scheduleId: $routeParams.scheduleId
-        }, function() {});
-*/
+    }
+]);
+
+/**
+ * Sheet detail: List of purchase items
+ */
+eurocorpControllers.controller( 'eurocorpSheetCtrl', [
+    '$scope',
+    '$routeParams',
+    'Eurocorp',
+    function($scope, $routeParams, Eurocorp) {
+
+        $scope.sheet = {};
+
+        Eurocorp.sheet.get({
+            sheetId: $routeParams.sheetId
+        }, function(sheet) {
+
+            if (sheet.detailing_content) {
+                sheet.detailing_content = angular.fromJson(sheet.detailing_content);
+            }
+
+            if (angular.equals(sheet.status.toLowerCase(), 'quote waiting') ||
+                angular.equals(sheet.status.toLowerCase(), 'quote ready') ||
+                angular.equals(sheet.status.toLowerCase(), 'quote rejected')) {
+                $scope.sheetStatus = 'Quote';
+            } else if (angular.equals(sheet.status.toLowerCase(), 'completed job')) {
+                $scope.sheetStatus = 'Completed';
+            } else if (angular.equals(sheet.status.toLowerCase(), 'cancelled')) {
+                $scope.sheetStatus = 'Cancelled';
+            } else {
+                $scope.sheetStatus = 'In Progress';
+            }
+            $scope.sheet = sheet;
+        });
     }
 ]);
 

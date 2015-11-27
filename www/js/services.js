@@ -84,6 +84,10 @@ eurocorpServices.factory('Eurocorp', ['$resource',
                 {},
                 { get: {method: 'GET', params: {scheduleId: '@schedule_id'}, isObject: true}}
             ),
+            sheet: $resource('http://eurocorp.localhost/api/sheets/:sheetId',
+                {},
+                { get: {method: 'GET', params: {sheetId: '@sheet_id'}, isObject: true}}
+            ),
             representative: $resource('http://eurocorp.localhost/api/jobs/:jobId/representatives',
                 {},
                 { get: {method: 'GET', params: {jobId: '@job_id'}, isObject: true}}
@@ -103,7 +107,7 @@ eurocorpServices.factory('Eurocorp', ['$resource',
                 { get: {method: 'GET', params: {jobId: '@job_id'}, isObject: true}}
             ),
             sheetInfo: $resource('http://eurocorp.localhost/api/sheets/:sheetId/information',
-                {},
+                { status: '@status' },
                 { get: {method: 'GET', params: {sheetId: '@sheet_id'}, isObject: true}}
             ),
             jobSchedules: $resource('http://eurocorp.localhost/api/jobs/:jobId/schedules',
